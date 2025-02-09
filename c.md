@@ -1,5 +1,13 @@
 # C
-
+---
+**TO-DO**
+- [ ] Functional programming in C
+- [ ] Dynamic memory allocation
+- [ ] Strings
+- [ ] Multi-dimensional arrays
+- [ ] Arrays of pointers
+- [ ] Arguments to `main() `
+ 
 To compile and run a .c program, use the following command:
 ```bash
 gcc -o <output>.exe <input>.c
@@ -183,34 +191,4 @@ An array in C is a pointer (whose address is fixed and cannot be changed).  The 
 - `*(a + i)` is equivalent to the value at that index `a[i]`.
 
 This is why when an array gets passed to a function, **arrays are passed as pass-by-reference**.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
