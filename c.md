@@ -120,3 +120,97 @@ If the expression passed to `assert` is false, the system will print a message a
 } 
 ```
 ## Arrays, Pointers, & Strings 
+
+
+Pointers are a derived data type that is used to:
+
+- *Store the address* of another variable 
+- *Access* the variable's data stored at that location. 
+- *Manipulate* the variable's data stored at that location. 
+
+The general form of declaring a pointer variable is `type *name` where `type` refers to the type that the address will be storing. 
+
+```
+p  -> address
+*p -> value stored at address
+```
+
+```c
+int main(void)
+{
+    int a = 10; 
+
+    // Store address of a
+    int *p = &a;
+    // Equivalent to b = a
+    int b = *p;
+    // Manipulate value of a
+    *p += 2;
+    // Access value of a
+    printf("a = %d and *p = %d\n", a, *p);  // Output: a = 12 and *p = 12
+    printf("a = %d and p = %p\n", a, p);   // Output: a = 12 and p = 0x7ffc2cd84b4c
+    // b has not changed
+    printf("b = %d\n", b);   // Output: b = 10
+}
+```
+Using pointers, we can recreate **pass-by-reference** behaviour in C.  The following is a standard mechanism for defining functions that can change the value of their parameters.
+
+1. Declare fuction parameters as pointers `*param`
+2. Pass in addresses when calling the function.
+3. Deference pointer values in function body to access and manipulate pointer values.  
+
+```c
+void swap(float *x, float *y){
+  float temp = *x;
+  *x = *y; // Change value of b to a
+  *y = temp; // Change value of a to temp
+}
+
+int main(void)
+{
+    float c = 45.5, d = 101.25;
+    swap(&c, &d);
+    printf("c = %f and d = %f\n", c, d); // Output: c = 10.25 and d = 45.5
+}
+```
+
+### Arrays 
+
+An array in C is a pointer (whose address is fixed and cannot be changed).  The array name is just a pointer to the base address where the sequencial slots of storage for the array elements begin.  Suppose we have an array `float a[10]`:
+
+- `a` is equivalent to the base address `&a[0]`.
+- `a + i` is equivalent to the address of the i-th element `&a[i]`.
+- `*(a + i)` is equivalent to the value at that index `a[i]`.
+
+This is why when an array gets passed to a function, **arrays are passed as pass-by-reference**.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
