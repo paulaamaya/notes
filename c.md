@@ -1,13 +1,15 @@
 # C
----
+
 **TO-DO**
 - [ ] Functional programming in C
 - [ ] Dynamic memory allocation
 - [ ] Strings
 - [ ] Multi-dimensional arrays
 - [ ] Arrays of pointers
-- [ ] Arguments to `main() `
+- [ ] Arguments to `main()`
  
+---
+
 To compile and run a .c program, use the following command:
 ```bash
 gcc -o <output>.exe <input>.c
@@ -127,8 +129,7 @@ If the expression passed to `assert` is false, the system will print a message a
     }
 } 
 ```
-## Arrays, Pointers, & Strings 
-
+## Pointers, Arrays, Strings
 
 Pointers are a derived data type that is used to:
 
@@ -191,4 +192,18 @@ An array in C is a pointer (whose address is fixed and cannot be changed).  The 
 - `*(a + i)` is equivalent to the value at that index `a[i]`.
 
 This is why when an array gets passed to a function, **arrays are passed as pass-by-reference**.
+
+### Dynamic Memory Allocation
+
+We can use the functions `calloc()` and `malloc()` to dynamically create space for arrays, stucts, and unions in C.  
+
+The name `calloc` stands for "contiguous memory allocation".  This function takes in two usigned integers as follows: `calloc(n, size)`.  If the call is successful a pointer of type `void *` is returned, otherwise `NULL` is returned. The space is **initialized with all bits set to zero**.
+
+The name `malloc` stands for "memory allocation".  This function takes a single unsigned integer detemining the size of the memory to be allocated: `malloc(n * size)`. If the call is successful a pointer of type `void *` is returned, otherwise `NULL` is returned. The space is **not initialized**.  Thus if there is no reason to initialize the space, a call to `malloc` is more efficient.
+
+Space that has been dynamically allocated by these two functions *does not get returned to the system upon function exit*.  This must be manually done using the call `free(pointer)`.
+* If `pointer` is `NULL`, the function has no effect.
+* If `pointer` is not `NULL`, it must be the **base address** of space previuously allocated by a call to `calloc()`, `malloc()`, or `realloc()` that has not yet been freed by a call to `free()` or `realloc()`.  In the case that this condition is not met, the function will throw an error.
+
+
 
