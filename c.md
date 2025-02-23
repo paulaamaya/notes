@@ -2,7 +2,7 @@
 
 **TO-DO**
 - [ ] Functional programming in C
-- [ ] Dynamic memory allocation
+- [x] Dynamic memory allocation
 - [ ] Strings
 - [ ] Multi-dimensional arrays
 - [ ] Arrays of pointers
@@ -129,6 +129,7 @@ If the expression passed to `assert` is false, the system will print a message a
     }
 } 
 ```
+
 ## Pointers, Arrays, Strings
 
 Pointers are a derived data type that is used to:
@@ -205,5 +206,7 @@ Space that has been dynamically allocated by these two functions *does not get r
 * If `pointer` is `NULL`, the function has no effect.
 * If `pointer` is not `NULL`, it must be the **base address** of space previuously allocated by a call to `calloc()`, `malloc()`, or `realloc()` that has not yet been freed by a call to `free()` or `realloc()`.  In the case that this condition is not met, the function will throw an error.
 
+# Modules
 
+There are no formal modules in C, but the combination of a header file and a source file offers similar functionality.
 
