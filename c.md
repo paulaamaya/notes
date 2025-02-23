@@ -203,10 +203,31 @@ The name `calloc` stands for "contiguous memory allocation".  This function take
 The name `malloc` stands for "memory allocation".  This function takes a single unsigned integer detemining the size of the memory to be allocated: `malloc(n * size)`. If the call is successful a pointer of type `void *` is returned, otherwise `NULL` is returned. The space is **not initialized**.  Thus if there is no reason to initialize the space, a call to `malloc` is more efficient.
 
 Space that has been dynamically allocated by these two functions *does not get returned to the system upon function exit*.  This must be manually done using the call `free(pointer)`.
+
 * If `pointer` is `NULL`, the function has no effect.
 * If `pointer` is not `NULL`, it must be the **base address** of space previuously allocated by a call to `calloc()`, `malloc()`, or `realloc()` that has not yet been freed by a call to `free()` or `realloc()`.  In the case that this condition is not met, the function will throw an error.
 
-# Modules
+## Modules
 
 There are no formal modules in C, but the combination of a header file and a source file offers similar functionality.
 
+### Header Files
+
+Header files `.h` serve as interfaces to modules.  These are going to contain the public-facing fuction/type declarations, not the definitions.  
+
+* **Documentation** is included in these, since this should be the only file a programmer needs to look at in order to make use of a module.
+* The filename conventionally matches its corresponding `.c` file.
+* Should be surrounded by include guards to prevent problems.
+
+When the C preprocessor reaches an `#incude` macro, it literally replaces the include line with the contents of the file.  If many C files include the same header file, the declarations would be repeated which is invalid in C.  To address this, *include guards* are a pattern of if-then statements which have the following convention:
+
+```C
+# ifndef HEADER_H
+# define HEADER_H
+
+// ...
+
+# endif
+```
+
+The first time a file includes a header file, its declarations are loaded.  Subsequent times it is skipped over, therefore making including a header file *idempotent*.
