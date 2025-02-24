@@ -1,15 +1,5 @@
 # C
 
-**TO-DO**
-- [ ] Functional programming in C
-- [x] Dynamic memory allocation
-- [ ] Strings
-- [ ] Multi-dimensional arrays
-- [ ] Arrays of pointers
-- [ ] Arguments to `main()`
- 
----
-
 To compile and run a .c program, use the following command:
 ```bash
 gcc -o <output>.exe <input>.c
@@ -196,24 +186,37 @@ This is why when an array gets passed to a function, **arrays are passed as pass
 
 ### Dynamic Memory Allocation
 
+In C, dynamic memory allocation allows us to allocate memory at runtime using functions like `calloc()` and `malloc()`. This is particularly useful for creating arrays, structs, and unions whose sizes are not known at compile time.
 We can use the functions `calloc()` and `malloc()` to dynamically create space for arrays, stucts, and unions in C.  
 
-The name `calloc` stands for "contiguous memory allocation".  This function takes in two usigned integers as follows: `calloc(n, size)`.  If the call is successful a pointer of type `void *` is returned, otherwise `NULL` is returned. The space is **initialized with all bits set to zero**.
+* `calloc()`: Contiguous Memory Allocation
+    - Allocates a block of memory for an array of elements and initializes all bits to zero.
+    - This function takes in two usigned integers `calloc(n, size)`.  If the call is successful a pointer of type `void*` is returned, otherwise `NULL` is returned.
+* `malloc()`: Memory Allocation
+    - Allocates a block of memory of a specified size.  Bits are not initialized.
+    - This function takes a single unsigned integer detemining the size of the memory to be allocated `malloc(n * size)`. If the call is successful a pointer of type `void *` is returned, otherwise `NULL` is returned.
+    - If there is no need to initialize the space, a call to **malloc is more efficient**.
+* `free()`: Releasing Allocated Memory
+    - Dynamically allocated memory does not get automatically released when a function exits. It must be explicitly freed using this function to avoid memory leaks.
+    - If `pointer` is `NULL`, the function has no effect.
+    - If `pointer` is not `NULL`, it must be the **base address** of space previously allocated by a call to `calloc()`, `malloc()`, or `realloc()` that has not yet been freed by a call to `free()` or `realloc()`.  In the case that this condition is not met, the function will throw an error.
 
-The name `malloc` stands for "memory allocation".  This function takes a single unsigned integer detemining the size of the memory to be allocated: `malloc(n * size)`. If the call is successful a pointer of type `void *` is returned, otherwise `NULL` is returned. The space is **not initialized**.  Thus if there is no reason to initialize the space, a call to `malloc` is more efficient.
+```C
+// Allocate memory for 10 integers
+int* arr = (int*) malloc(10 * sizeof(int)); 
 
-Space that has been dynamically allocated by these two functions *does not get returned to the system upon function exit*.  This must be manually done using the call `free(pointer)`.
+if (arr == NULL) {
+    // Handle allocation failure
+}
 
-* If `pointer` is `NULL`, the function has no effect.
-* If `pointer` is not `NULL`, it must be the **base address** of space previuously allocated by a call to `calloc()`, `malloc()`, or `realloc()` that has not yet been freed by a call to `free()` or `realloc()`.  In the case that this condition is not met, the function will throw an error.
+// ...
+free(arr); 
+```
 
 ## Modules
 
-There are no formal modules in C, but the combination of a header file and a source file offers similar functionality.
 
-### Header Files
-
-Header files `.h` serve as interfaces to modules.  These are going to contain the public-facing fuction/type declarations, not the definitions.  
+While C does not have formal modules, the combination of header files (.h) and source files (.c) provides similar functionality. Header files serve as the interface to a module, containing public-facing declarations such as function prototypes, type definitions, and constants.
 
 * **Documentation** is included in these, since this should be the only file a programmer needs to look at in order to make use of a module.
 * The filename conventionally matches its corresponding `.c` file.
@@ -222,12 +225,23 @@ Header files `.h` serve as interfaces to modules.  These are going to contain th
 When the C preprocessor reaches an `#incude` macro, it literally replaces the include line with the contents of the file.  If many C files include the same header file, the declarations would be repeated which is invalid in C.  To address this, *include guards* are a pattern of if-then statements which have the following convention:
 
 ```C
-# ifndef HEADER_H
-# define HEADER_H
+// math_utils.h
+#ifndef MATH_UTILS_H
+#define MATH_UTILS_H
 
-// ...
+// Function prototype
+int add(int a, int b);
 
-# endif
+#endif 
 ```
-
 The first time a file includes a header file, its declarations are loaded.  Subsequent times it is skipped over, therefore making including a header file *idempotent*.
+
+Source files contain the implementation of the module, including function definitions and private helper functions.
+
+```C
+#include "math_utils.h"
+
+int add(int a, int b) {
+    return a + b;
+}
+```
