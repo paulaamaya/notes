@@ -12,8 +12,8 @@ By default, C programs read from standard input (keyboard) and write to standard
 
 ## Data Types in C
 
-| **Data Type** | **Size**     | **Description**                                                | **Format Specifier** |
-|---------------|--------------|----------------------------------------------------------------|:--------------------:|
+| **Data Type** | **Size**     | **Description**                                                |   **Format Specifier**    |
+|---------------|--------------|----------------------------------------------------------------|:-------------------------:|
 | `char`        | 1 byte       | Single character/letter/number/ASCII value.                    |         `%c, %uc`         |
 | `int`         | 2 or 4 bytes | Whole numbers                                                  |         `%hd, %d, %ld`    |
 | `float`       | 4 bytes      | Fractional numbers. Sufficient for storing 6-7 decimal digits. |         `%f`              |
@@ -50,6 +50,10 @@ The typedef keyword allows you to create synonyms for existing types. For exampl
 typedef float INCHES
 INCHES length, width;
 ```
+
+### Enums
+
+Enumerations are the most simple of user-defined types in C.
 
 ## Functions
 

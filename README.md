@@ -1,6 +1,10 @@
-# notes
-Notes in markdown for various subjects.
+# Notes
+Notes in markdown for various topics.
 
-# Programming Languages
+## Programming Languages
 
 - [C](./c.md)
+
+## Tools
+
+- [Git](./git.md)
