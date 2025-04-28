@@ -1,4 +1,4 @@
-/* Read in floats and print their sum
+/* Read in three floats and print their sum.
  * Paula Amaya
  * January 29, 2025
  */
