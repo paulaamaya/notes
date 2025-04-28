@@ -10,6 +10,12 @@ By default, C programs read from standard input (keyboard) and write to standard
 <output>.exe < input.txt > output.txt
 ```
 
+A backslash at the end of a line in a string constant has the effect of continuing it to the next line without affecting the output:
+```c
+"by using a backslash at the end of any line \
+a string can be extended from one line to the next."
+```
+
 ## Data Types in C
 
 | **Data Type** | **Size**     | **Description**                                                |   **Format Specifier**    |
@@ -19,10 +25,8 @@ By default, C programs read from standard input (keyboard) and write to standard
 | `float`       | 4 bytes      | Fractional numbers. Sufficient for storing 6-7 decimal digits. |         `%f`              |
 | `double`      | 8 bytes      | Fractional numbers.  Sufficient for storing 15 decimal digits. |         `%lf, %Lf`        |
 
-For instance on Oppie we have:
-
 ```bash
-Type Sizes on My System
+Type Sizes on Oppie:
     char: 1 bytes.
     short int: 2 bytes.
     int: 4 bytes.
@@ -32,28 +36,45 @@ Type Sizes on My System
     long double: 16 bytes.
 ```
 
-The type `char` is stored an as integer corresponding to the ASCII number of printing characters.  Therefore, they can be used in both representations.  Variables of this type can also just be *used to store small integers*.
+### `char`
+
+The type `char` is stored an as integer corresponding to the ASCII number of printing characters.  Therefore, variables of this type can also just be *used to store small integers*.
 
 ```c
-int main(void)
-{
-  char a = 'a';
-  printf("The char a is %c", a); // Output: a
-  printf("The char a is %d", a); // Output 97
-
-  return 0;
-}
+char a = 'a';
+printf("The char a is %c", a); // Output: a
+printf("The char a is %d", a); // Output 97
 ```
 
-The typedef keyword allows you to create synonyms for existing types. For example:
+### `typedef`
+
+The `typedef` keyword allows you to create synonyms for existing types.  This is mainly used as syntactic sugar that makes the code easier to read. 
 ```c
-typedef float INCHES
-INCHES length, width;
+typedef float INCH
+
+INCH length = 27.5;
 ```
 
-### Enums
+### `enum`
 
-Enumerations are the most simple of user-defined types in C.
+Enumerations are the most simple of user-defined types in C.  It provides a mean of naming a finite set, and of declaring identifiers as elements of a set.
+```c
+enum day {sun, mon, tue, wed, thu, fri, sat};
+```
+The keyword immediately after the declaration `enum` is the set name and the identifiers are its elements, always constants of type `int`.  By default, the identifiers are started at 0, and each succeeding one has the next integer value.  This behaviour can be overwritten by explicitly declaring a starting point:
+```c
+enum day {sun = 1, mon, tue, wed, thu, fri, sat};
+```
+When we declare a variable to be of an enum tag, the variable can only take on values that are in the set. Note that the type of the variable is `enum day`; the keyword **`enum` by itself is not a type**.
+```c
+enum day {sun = 1, mon, tue, wed, thu, fri, sat};
+```
+
+> The set name of an enum need not be present.  This is used for enums that will not be used extensively.  For example:
+> ```c
+> enum {fir, pine} tree;
+> ```
+> Because there is no set name, no other variables of type `enum {fir, tree}` can be declared.
 
 ## Functions
 
@@ -68,7 +89,7 @@ Enumerations are the most simple of user-defined types in C.
 
 **`auto`** Principal storage class.  Considered "local" to the block where they are defined, and child blocks.  They can be masked when a child block declares them again.
 
-**`extern`** Default class for all functions and variables declared outside of functions and can be used trouhghout the program.  Such variables can be masked by child blocks redeclaring them, but their values cannot be destroyed.
+**`extern`** Default class for all functions and variables declared outside of functions and can be used throughout the program.  Such variables can be masked by child blocks redeclaring them, but their values cannot be destroyed.
 
 ```c
 #include <stdio.h>
@@ -93,7 +114,7 @@ int f(){
 }
 ```
 
-They keyword `extern` also tells the compiler to look for their declaration "somehwere else", such as a `.h` file.  This is the correct way of calling these variables. 
+They keyword `extern` also tells the compiler to look for their declaration "somewhere else", such as a `.h` file.  This is the correct way of calling these variables. 
 
 **`static`** Preserve block-exit values of variables.  When applied to external identifiers, these restric their scope to the file where they are defined only. This enhances program security by providing a form of privacy.
 
@@ -102,7 +123,7 @@ They keyword `extern` also tells the compiler to look for their declaration "som
 The use of assertions through the `assert.h` header file is good programming methodology.
 
 ```c
-# include <assert,h>
+# include <assert.h>
 
 int main(void){
     int a, b, c;
@@ -218,7 +239,6 @@ free(arr);
 ```
 
 ## Modules
-
 
 While C does not have formal modules, the combination of header files (.h) and source files (.c) provides similar functionality. Header files serve as the interface to a module, containing public-facing declarations such as function prototypes, type definitions, and constants.
 
