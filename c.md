@@ -59,22 +59,32 @@ INCH length = 27.5;
 
 Enumerations are the most simple of user-defined types in C.  It provides a mean of naming a finite set, and of declaring identifiers as elements of a set.
 ```c
-enum day {sun, mon, tue, wed, thu, fri, sat};
+enum Day {Sun, Mon, Tue, Wed, Thu, Fri, Sat};
 ```
 The keyword immediately after the declaration `enum` is the set name and the identifiers are its elements, always constants of type `int`.  By default, the identifiers are started at 0, and each succeeding one has the next integer value.  This behaviour can be overwritten by explicitly declaring a starting point:
 ```c
-enum day {sun = 1, mon, tue, wed, thu, fri, sat};
+enum Day {Sun = 1, Mon, Tue, Wed, Thu, Fri, Sat};
 ```
 When we declare a variable to be of an enum tag, the variable can only take on values that are in the set. Note that the type of the variable is `enum day`; the keyword **`enum` by itself is not a type**.
 ```c
-enum day {sun = 1, mon, tue, wed, thu, fri, sat};
+enum Day {Sun = 1, Mon, Tue, Wed, Thu, Fri, Sat};
 ```
 
 > The set name of an enum need not be present.  This is used for enums that will not be used extensively.  For example:
 > ```c
-> enum {fir, pine} tree;
+> enum {Fir, Pine} tree;
 > ```
-> Because there is no set name, no other variables of type `enum {fir, tree}` can be declared.
+> Because there is no set name, no other variables of type `enum {Fir, Tree}` can be declared.
+
+In general, one should treat enums as programmer-specified constants and use them to aid program clarity.
+
+## `struct`
+
+The structure data type is used to represent a collection of heterogeneous data.  It has *members* of (potentially) different types that are individually named.
+
+
+
+
 
 ## Functions
 
